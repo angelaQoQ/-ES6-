@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 1 考点:  var 不存在块级作用域; var 声明的变量提升
+
+    var s = [1, 2, 3];
+    for (var i = 0; i < s.length; i++) {
+      console.log(s[i]);
+    }
+    console.log(i);
+
+    // ---------------------------
+
+    var tmp = new Date();
+
+    function f() {
+      console.log(tmp);
+      if (false) {
+        var tmp = "hello world";
+      }
+    }
+
+    f()
+    // 块级作用域的出现后 我们就可以减少或者停止 使用自调用函数来保护全局作用域了
+
+
+
+    // 准备好数组
+    var arr = [1, 2, 3, 4, 5]
+
+    // find方法对数组中每一项进行判断, 判断的依据是 return 关键字后的表达式
+    //  如果 遍历期间 数组项大于等于了3  就把该项做 find() 方法的执行结果
+    var resultItem = arr.find((item, i) => {
+      return item >= 3
+    })
+
+    console.log(resultItem)
+
+
+
+  </script>
+</body>
+
+</html>
