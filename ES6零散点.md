@@ -432,6 +432,157 @@
       let obj = {
         [Symbol('fn')](...args){}
       }
-  
 
+```
+
+# Set数据结构
+```js
+  // Set类似于数组,但是成员的值都是唯一的,没有重复值
+  // 具有add方法, 添加内容时会过滤掉重复值
+  var s = new Set()
+  s.add(1)
+  s.add(2)
+  s.add(1)
+  console.log(s) // [1,2]
+
+  var s2 = new Set([1,2,3,4,5,3,1,2,1])
+  console.log(s2) // [1,2,3,4,5]
+
+  // 可以利用set不重复的属性实现数组去重
+  var arr= [1,2,1,2]
+  var s = new Set(arr)
+
+  // Set内部会做全等判断,所以在接收转换时值相同,类型不同的数据也会保留, 但是 NaN和自身相等
+
+  1 Set实例的属性和方法
+    + Set.prototype.constructor : 默认是Set构造函数
+    + Set.prototype.size:  返回Set实例成员总数
+    + 操作方法:
+      + add() 添加值
+      + delete() 删除值
+      + has()  检测值
+      + clear() 清空值
+      + Array.from(Set结构)  可以将Set结构数据转成数组---用来做数组去重
+    + 遍历方法:
+      + keys() 返回键名的遍历器
+      + values()  返回键值的遍历器
+      + entries()  返回键值对的遍历器
+      + forEach()  使用回调函数遍历每个成员
+   2 
+    WeakSet 弱类型set类型
+    // weakSet 中只能存放对象,不能存放别的类型,  wekSet中值如果是对象引用, 当在外部市区该对象引用的时候垃圾回收机制会忽略weakSet类型引用,直接回收
+    let ws = new WeakSet()
+    ws.add(1) // 报错,非法的参数类型
+    ws.add([1]) // 报错, 数组会被自动迭代,把每一项添加到WeakSet中, 但是数组中项必须要办证是对象的形式
+    ws.add([{name:'xm'}])
+    // 相关方法
+    add() 添加
+    delete() 删除
+    has()  检测
+    // WeakSize没有seize属性. Set类型有size属性
+```
+# Map数据类型
+```js
+ 1
+  // Map 数据类型相对于对象, 对象是 键值对 ,键都是字符串; Map 是值 值
+  // 创建Map实例使用多维数组
+  let m = new Map(数组参数)
+  let m1 = new Map([ [true , 123] , ['true' , false] ])
+
+  m1.get(true) // 123
+  m1.get('true') // false
+
+  // 常用方法
+  get()
+  set()
+  has()
+  delete()
+
+  // 问题
+  let m2 = new Map( )
+  // 设置复杂数据类型时首值时 要用变量, 不能直接使用值, 因为地址不同
+  m2.set([5] , 1)
+  console.log( m2.get([5])) // undefined
+  let arr = [5]
+  m2.set(arr , 1)
+  console.log(m2.get(arr)) // 1
+
+2 实例属性和方法 ---- 和 Set实例属方法相同
+  size // 返回Map实例内容个数
+  set(key , value) //设置新属性,值
+  get(key) //获取相关属性值
+  has(key) //检测相关属性是否存在
+  delete(key) //删除相关属性和值
+  clear() //清空Map实例中所有的属性和值
+
+  // 循环遍历方法  获取到的都是iterator类型
+  .keys()
+  .values()
+  .entries()
+  .forEach()  // 和数组 forEach方法相同
+
+  // 使用技巧
+  1 Map 结构转数组 [...map实例.values()]  || [...map实例.keys()]  || [...map实例.entries()]
+  2 数组转 Map 
+    var arr = [1,2]
+    let mp = new Map(arr)
+
+```
+
+# Class类
+```js
+  1 构造函数和原型对象的新写法
+  function Person(name ,age ){
+    // 实例属性
+    this.name = name;
+    this.age = age;
+  }
+  // 构造函数属性
+  Person.prop = "prop"
+  // 实例方法
+  Person.prototype.say = function(){}
+  // 构造函数方法
+  Person.kind = function(){}
+  ===
+  class Person{
+    constructor(name , age){
+      this.name = name ;
+      this.age  = age;
+    }
+    // 构造属性
+    static prop = "prop"
+    // 实例方法不加static
+    say(){}
+    // 构造函数的方法叫静态方法要加 static
+    static kind(){}
+  }
+
+  2 继承实现
+  function Person(name , age){
+    this.name = name;
+    this.age = age;
+  }
+
+  function Student(name , age , sid){
+    Person.call(this, name , age )
+    this.sid = sid
+  }
+  ===
+
+  class Person{
+    constructor(name , age){
+      this.name  = name;
+      this.age = age;
+    }
+    say(){
+      alert('speak!')
+    }
+  }
+
+  class Student extends Person{
+    constructor(name , age , sid){
+      super(name, age) // 继承的父类构造函数调用 实现属性继承 , super函数要在this操作之前调用
+      this.sid = sid
+    }
+  }
 ```
